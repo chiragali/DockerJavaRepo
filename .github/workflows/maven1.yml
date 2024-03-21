@@ -32,3 +32,9 @@ jobs:
         mvn clean test
         -Dmaven.test.failure.ignore=true
 
+    - name: archive report artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: sparkHTML
+        path: ./reports/*.html
+

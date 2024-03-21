@@ -97,6 +97,16 @@ public class BaseTest {
                 }
             }
 
+            else if(AppConstants.platform.equalsIgnoreCase("remote_git"))
+            {
+                co.addArguments("--headless"); //for GitHub actions
+                co.addArguments("--disable-gpu");
+                co.addArguments("--no-sandbox");
+                co.addArguments("--remote-allow-origins=*");
+                WebDriverManager.chromedriver().setup();
+                driver = new ChromeDriver(co);
+            }
+
         }
 
         if(browser.equalsIgnoreCase(("firefox"))){
@@ -118,6 +128,16 @@ public class BaseTest {
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);
                 }
+            }
+
+            else if(AppConstants.platform.equalsIgnoreCase("remote_git"))
+            {
+                fo.addArguments("--headless"); //for GitHub actions
+                fo.addArguments("--disable-gpu");
+                fo.addArguments("--no-sandbox");
+                //  fo.addArguments("--remote-allow-origins=*"); not required for GitHub actions execution flow
+                WebDriverManager.firefoxdriver().setup();
+                driver = new FirefoxDriver(fo);
             }
 
         }

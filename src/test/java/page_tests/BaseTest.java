@@ -131,7 +131,7 @@ public class BaseTest {
                     throw new RuntimeException(e);
                 }
             }
-
+//
             else if(AppConstants.platform.equalsIgnoreCase("remote_git"))
             {
                 fo.addArguments("--headless"); //for GitHub actions

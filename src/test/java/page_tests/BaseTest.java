@@ -125,7 +125,7 @@ public class BaseTest {
 
                     // grid firefox & mention your system IP address instead of loca
                    // driver = new RemoteWebDriver(new URL("http://localhost:4442"), fo);
-
+//
                     driver = new RemoteWebDriver(new URL("http://192.168.1.163:4444/wd/hub"), fo);
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);

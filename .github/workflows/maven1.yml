@@ -21,14 +21,17 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+# Install the docker compose
       - name: Install Docker Compose
         run: |
           sudo apt-get update
           sudo apt-get install docker-compose -y
 
+# Login into Docker compose
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
+# Checks if DOcker composer is running
       - name: Check if Docker Compose is running
         id: check-docker-compose
         run: |
@@ -41,6 +44,7 @@ jobs:
             echo "::set-output name=services_running::false"
           fi
 
+# Start Docker Compose services if not running
       - name: Start Docker Compose services if not running
         if: steps.check-docker-compose.outputs.services_running == 'false'
         run: |

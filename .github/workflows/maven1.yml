@@ -44,7 +44,7 @@ jobs:
             echo "::set-output name=services_running::false"
           fi
 
-# Start Docker Compose services if not running
+      # Start Docker Compose services if not running
       - name: Start Docker Compose services if not running
         if: steps.check-docker-compose.outputs.services_running == 'false'
         run: |

@@ -123,9 +123,12 @@ public class BaseTest {
                     //remote webdriver url for Selenium Grid
                     //driver = new RemoteWebDriver(new URL("http://localhost:4444"), fo);
 
-                    // grid firefox & mention your system IP address instead of loca
+
+
+                    //remote webdriver url for Selenium standalone browser
                    // driver = new RemoteWebDriver(new URL("http://localhost:4442"), fo);
-//
+
+                 // grid firefox & mention your system IP address instead of loca
                     driver = new RemoteWebDriver(new URL(AppConstants.ipAddressUrl), fo);
                 } catch (MalformedURLException e) {
                     throw new RuntimeException(e);

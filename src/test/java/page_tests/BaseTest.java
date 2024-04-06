@@ -69,7 +69,6 @@ public class BaseTest {
         ChromeOptions co = new ChromeOptions();
         FirefoxOptions fo = new FirefoxOptions();
 
-        System.out.println(" Browser is -- "+browserName);
 
         if(browserName!=null){
             browser = browserName;
@@ -80,12 +79,15 @@ public class BaseTest {
 
         if(browser.equalsIgnoreCase(("chrome"))){
             if(AppConstants.platform.equalsIgnoreCase("local")){
+                System.out.println(" Local Browser is -- "+browserName);
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
             }
 
             else if (AppConstants.platform.equalsIgnoreCase("remote"))
             {
+                System.out.println(" Remote Browser is -- "+browserName);
+
                 co.setPlatformName("linux");
                 co.setPageLoadStrategy(PageLoadStrategy.EAGER);
                 try {
@@ -106,6 +108,8 @@ public class BaseTest {
 
             else if(AppConstants.platform.equalsIgnoreCase("remote_git"))
             {
+                System.out.println(" Remote Git Browser is -- "+browserName);
+
                 co.addArguments("--headless"); //for GitHub actions
                 co.addArguments("--disable-gpu");
                 co.addArguments("--no-sandbox");
@@ -118,12 +122,16 @@ public class BaseTest {
 
         if(browser.equalsIgnoreCase(("firefox"))){
             if(AppConstants.platform.equalsIgnoreCase("local")){
+                System.out.println(" Local Browser is -- "+browserName);
+
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver();
             }
 
             else if (AppConstants.platform.equalsIgnoreCase("remote"))
             {
+                System.out.println(" Remote Browser is -- "+browserName);
+
                 co.setPlatformName("linux");
                 co.setPageLoadStrategy(PageLoadStrategy.EAGER);
                 try {
@@ -144,7 +152,8 @@ public class BaseTest {
 //
             else if(AppConstants.platform.equalsIgnoreCase("remote_git"))
             {
-                testLogger.get().log(Status.INFO, "Docker Driver Started Time: "+ LocalDateTime.now());
+                System.out.println(" Remote Git Browser is -- "+browserName);
+                //testLogger.get().log(Status.INFO, "Docker Driver Started Time: "+ LocalDateTime.now());
                 System.out.println("Docker Driver Started");
                 fo.addArguments("--headless"); //for GitHub actions
                 fo.addArguments("--disable-gpu");
@@ -179,7 +188,7 @@ public class BaseTest {
             testLogger.get().fail(MediaEntityBuilder.createScreenCaptureFromBase64String(BasePage.convertImg_Base64(screenshot)).build());
         }
 
-        testLogger.get().log(Status.INFO, "Driver End Time: "+ LocalDateTime.now());
+        testLogger.get().log(Status.INFO, "Driver Docker End Time: "+ LocalDateTime.now());
 
         driver.quit();
     }

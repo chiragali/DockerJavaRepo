@@ -150,6 +150,8 @@ public class BaseTest {
                 //  fo.addArguments("--remote-allow-origins=*"); not required for GitHub actions execution flow
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver(fo);
+                testLogger.get().log(Status.INFO, "Docker Driver Started Time: "+ LocalDateTime.now());
+
             }
 
         }

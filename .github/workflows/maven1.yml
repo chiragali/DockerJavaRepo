@@ -69,8 +69,8 @@ jobs:
         if: steps.check-docker-compose.outputs.services_running == 'false'
         run: |
           docker-compose -f docker/docker-compose_grid.yml down
-          
 
+      # Start Docker Compose services if not running
       - name: Send Email Notification
         if: success() || failure()
         env:

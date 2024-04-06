@@ -39,9 +39,14 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.Properties;
 
 import static utils.ExtentReportHelper.getReportObject;
 
@@ -89,6 +94,8 @@ public class BaseTest {
 
                     // grid firefox & mention your system IP address instead of localhost
                     driver = new RemoteWebDriver(new URL(AppConstants.ipAddressUrl), co);
+//                    String url = fileUtils.getApplicationProperty("demoUrl");
+//                    goToApplication(url);
 
                     //remote webdriver url for Selenium standalone browser
                   // driver = new RemoteWebDriver(new URL("http://localhost:4441"), co);
@@ -178,6 +185,33 @@ public class BaseTest {
     public void flushTestReport()
     {
         reports.flush();
+    }
+
+    @BeforeSuite
+    public void deletePreviousReports() {
+        // Specify the path to the reports folder
+        String reportsFolderPath = "reports";
+
+        // Create a File object for the reports folder
+        File reportsFolder = new File(reportsFolderPath);
+
+        // Check if the reports folder exists
+        if (reportsFolder.exists() && reportsFolder.isDirectory()) {
+            // Get a list of all files in the reports folder
+            File[] files = reportsFolder.listFiles();
+
+            // If there are files, delete them
+            if (files != null) {
+                for (File file : files) {
+                    file.delete();
+                }
+                System.out.println("Previous reports deleted successfully.");
+            } else {
+                System.out.println("No files found in the reports folder.");
+            }
+        } else {
+            System.out.println("Reports folder does not exist.");
+        }
     }
 
 }

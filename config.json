@@ -1,0 +1,12 @@
+{
+  "dev": {
+    "username": "standard_user",
+    "password": "secret_sauce",
+    "url": "https://www.saucedemo.com/"
+  },
+  "stage": {
+    "username": "standard_user",
+    "password": "secret_sauce",
+    "url": "https://www.saucedemo.com/"
+  }
+}

@@ -29,7 +29,9 @@ public class ExtentReportHelper
         reports = new ExtentReports();
         reports.attachReporter(sparkReporter);
 
-        reports.setSystemInfo("Tester is: ", "Japneet Sachdeva");
+        reports.setSystemInfo("Project ", "Ecomm Demo");
+        reports.setSystemInfo("Env ", FileUtils.getenv());
+        //reports.setSystemInfo("Tester: ", "Chirag Ali");
         return  reports;
 
     }

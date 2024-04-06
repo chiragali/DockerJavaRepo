@@ -1,6 +1,10 @@
 name: Java CI with Maven and Docker Compose
 
+
 on:
+  schedule:
+    - cron: '45 17 * * *'  # Runs at 4:45 PM UTC every day
+
   push:
     branches: [ "master" ]
   pull_request:

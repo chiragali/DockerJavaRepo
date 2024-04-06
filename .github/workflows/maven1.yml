@@ -69,3 +69,26 @@ jobs:
         if: steps.check-docker-compose.outputs.services_running == 'false'
         run: |
           docker-compose -f docker/docker-compose_grid.yml down
+          
+
+      - name: Send Email Notification
+        if: success() || failure()
+        env:
+          SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          RECIPIENTS: "chirag.ali47@gmail.com"
+
+        run: |
+          echo "Subject: Test Automation Completed" > email.txt
+          echo "Hello Stakeholders," >> email.txt
+          echo "" >> email.txt
+          echo "The automated tests have completed." >> email.txt
+          echo "You can view the test results at the following link:" >> email.txt
+          echo "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}" >> email.txt
+          echo "" >> email.txt
+          echo "Best regards," >> email.txt
+          echo "Your Automation Team" >> email.txt
+          cat email.txt | sendmail -t
+
+      - name: Cleanup
+        run: rm email.txt

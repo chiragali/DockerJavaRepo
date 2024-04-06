@@ -70,16 +70,21 @@ jobs:
         run: |
           docker-compose -f docker/docker-compose_grid.yml down
 
-      # Start Docker Compose services if not running
+      - name: Install ssmtp
+        run: sudo apt-get install ssmtp -y
+
+
+    # Start Docker Compose services if not running
       - name: Send Email Notification
         if: success() || failure()
         env:
           SMTP_EMAIL: ${{ secrets.SMTP_EMAIL }}
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           RECIPIENTS: "chirag.ali47@gmail.com"
-
         run: |
           echo "Subject: Test Automation Completed" > email.txt
+          echo "To: $RECIPIENTS" >> email.txt
+          echo "From: $SMTP_EMAIL" >> email.txt
           echo "Hello Stakeholders," >> email.txt
           echo "" >> email.txt
           echo "The automated tests have completed." >> email.txt
@@ -88,7 +93,7 @@ jobs:
           echo "" >> email.txt
           echo "Best regards," >> email.txt
           echo "Your Automation Team" >> email.txt
-          cat email.txt | sendmail -t
+          cat email.txt | ssmtp -t
 
       - name: Cleanup
         run: rm email.txt

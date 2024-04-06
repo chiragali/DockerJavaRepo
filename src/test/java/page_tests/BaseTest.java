@@ -144,13 +144,14 @@ public class BaseTest {
 //
             else if(AppConstants.platform.equalsIgnoreCase("remote_git"))
             {
+                testLogger.get().log(Status.INFO, "Docker Driver Started Time: "+ LocalDateTime.now());
+                System.out.println("Docker Driver Started");
                 fo.addArguments("--headless"); //for GitHub actions
                 fo.addArguments("--disable-gpu");
                 fo.addArguments("--no-sandbox");
                 //  fo.addArguments("--remote-allow-origins=*"); not required for GitHub actions execution flow
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver(fo);
-                testLogger.get().log(Status.INFO, "Docker Driver Started Time: "+ LocalDateTime.now());
 
             }
 

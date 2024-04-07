@@ -54,10 +54,13 @@ jobs:
         run: |
           docker-compose -f docker/docker-compose_grid.yml up -d
 
+# Start execution
       - name: Build with Maven
         run: >
           mvn clean test
           -Dmaven.test.failure.ignore=true
+
+    # Aattaching report into Github builds
 
       - name: archive report artifact
         uses: actions/upload-artifact@v3
@@ -65,11 +68,13 @@ jobs:
           name: sparkHTML
           path: ./reports/*.html
 
+    # Print IP Address of docker
       - name: Get Docker IP Address
         run: |
           DOCKER_IP=$(hostname -I | awk '{print $1}')
           echo "Docker IP Address: $DOCKER_IP"
 
+    # Stop Docker composer
       - name: Stop Docker Compose services
         if: steps.check-docker-compose.outputs.services_running == 'false'
         run: |

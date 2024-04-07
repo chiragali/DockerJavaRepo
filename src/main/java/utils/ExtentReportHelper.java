@@ -38,7 +38,6 @@ public class ExtentReportHelper
             throw new RuntimeException(e);
         }
         reports.setSystemInfo("Env ", FileUtils.getenv());
-        //reports.setSystemInfo("Tester: ", "Chirag Ali");
         return  reports;
 
     }

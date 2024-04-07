@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
+import java.net.UnknownHostException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -30,6 +31,12 @@ public class ExtentReportHelper
         reports.attachReporter(sparkReporter);
 
         reports.setSystemInfo("Project ", "Ecomm Demo");
+        try {
+            String ipAddress = FileUtils.getIPAddress();
+            reports.setSystemInfo("IP Address ", ipAddress);
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
         reports.setSystemInfo("Env ", FileUtils.getenv());
         //reports.setSystemInfo("Tester: ", "Chirag Ali");
         return  reports;
